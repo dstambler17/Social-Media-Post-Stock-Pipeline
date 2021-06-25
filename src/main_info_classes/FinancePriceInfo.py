@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+import os
 import logging
 from datetime import datetime
 from src.items.Asset import Asset
@@ -9,6 +10,7 @@ from src.utils.trading_date_util import get_recent_trading_day
 from src.utils.custom_decorators import time_func
 
 ALPHA_VANTAGE_URL = "https://alpha-vantage.p.rapidapi.com/query"
+RAPID_API_KEY = os.envion.get('RAPID_API_KEY')
 logger = logging.getLogger(__name__)
 
 
@@ -19,7 +21,7 @@ class FinancePriceGetter:
     def __init__(self, url=ALPHA_VANTAGE_URL):
         self.url = url
         self.headers = {
-            'x-rapidapi-key': "a2be0a9882msh3b935dcee5ea132p149e93jsn6ee345447ea0",
+            'x-rapidapi-key': RAPID_API_KEY,
             'x-rapidapi-host': "alpha-vantage.p.rapidapi.com"
         }
     
@@ -33,7 +35,7 @@ class FinancePriceGetter:
     def get_current_stock_price(self, ticker):
         REAL_TIME_URL = "https://twelve-data1.p.rapidapi.com/quote"
         REAL_TIME_HEADERS = {
-            'x-rapidapi-key': "a2be0a9882msh3b935dcee5ea132p149e93jsn6ee345447ea0",
+            'x-rapidapi-key': RAPID_API_KEY,
             'x-rapidapi-host': "twelve-data1.p.rapidapi.com"
         }
         querystring = {"symbol":ticker,"interval":"1min","outputsize":"30","format":"json"}
